@@ -1,5 +1,6 @@
- ![Logo](Logo/Logo_PurrPleaserS.png) |
-
+<p align="center">
+<img src="Logo/Logo_PurrPleaserS.png" width=60% height=60%>
+</p>
 
 # PurrPleaser3000 Single
 
