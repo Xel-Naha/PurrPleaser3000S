@@ -1,6 +1,6 @@
 /*
-* This is the configuration file for the PurrPleaser3000 (incl. 2x FoodPumps (+Scales) and 1x DumperDrive).
-* The configuration file is optimized for the PurrPleaser3000 Board, however settings may be changed to fit other layouts.
+* This is the configuration file for the PurrPleaser3000S (incl. 1x FoodPumps (+Scales) and 1x DumperDrive).
+* The configuration file is optimized for the PurrPleaser3000S Board, however settings may be changed to fit other layouts.
 * For different configurations, please change the settings below at "Configuration".
 */
 
