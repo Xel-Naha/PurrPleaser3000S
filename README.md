@@ -1,7 +1,4 @@
-
-[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-
-![Logo](Logo/Logo_PurrPleaserS.png)
+ ![Logo](Logo/Logo_PurrPleaserS.png) |
 
 
 # PurrPleaser3000 Single
