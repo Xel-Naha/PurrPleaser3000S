@@ -1,0 +1,59 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: separator
+    name: Cat Feeder
+    icon: fas:cat
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.single_feeder_status
+        name: Status
+      - type: custom:mushroom-entity-card
+        entity: sensor.single_feeder_days_until_empty
+        name: "Days until empty:"
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.single_feeder_debug
+        name: Info
+      - type: custom:mushroom-entity-card
+        entity: button.single_feeder_treat
+        name: Push to treat!
+        primary_info: name
+        secondary_info: none
+        icon_type: icon
+        icon: mdi:cupcake
+        fill_container: true
+        tap_action:
+          action: call-service
+          target:
+            entity_id: button.single_feeder_treat
+          perform_action: button.press
+        icon_color: green
+  - type: custom:apexcharts-card
+    apex_config:
+      chart:
+        height: 140px
+      yaxis:
+        min: 0
+    header:
+      show: false
+      show_states: true
+      colorize_states: true
+    series:
+      - entity: sensor.single_feeder_last_amount_maya
+        name: Maya
+        type: area
+        opacity: 0.4
+        extend_to: now
+    update_delay: 8s
+    graph_span: 7d
+    span:
+      end: day
+    show:
+      last_updated: true
+    now:
+      show: true
+view_layout:
+  grid-area: l

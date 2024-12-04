@@ -1,0 +1,123 @@
+type: grid
+cards:
+  - type: heading
+    heading: New section
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.single_feeder_status
+            name: Status
+          - type: custom:mushroom-entity-card
+            entity: sensor.single_feeder_debug
+            name: Debug
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.single_feeder_last_amount_maya
+            name: Last Feeding
+          - type: custom:mushroom-entity-card
+            entity: sensor.single_feeder_days_until_empty
+            name: Remaining Days
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: number.single_feeder_treat_amount_maya
+            name: Treat Amount
+          - type: custom:restriction-card
+            card:
+              type: custom:mushroom-entity-card
+              entity: button.single_feeder_treat
+              name: Push to treat!
+              primary_info: name
+              secondary_info: none
+              icon_type: icon
+              icon: mdi:cupcake
+              fill_container: true
+              tap_action:
+                action: call-service
+                service: button.press
+                target:
+                  entity_id: button.single_feeder_treat
+              icon_color: green
+      - type: custom:mushroom-title-card
+        title: Daily Feeding Amount
+        subtitle: ""
+        alignment: center
+      - type: custom:restriction-card
+        card:
+          type: custom:mushroom-number-card
+          entity: number.single_feeder_daily_maya
+          icon_color: accent
+          name: Daily Maya
+          primary_info: name
+          secondary_info: none
+          icon: mdi:basket-fill
+          display_mode: buttons
+          tap_action:
+            action: none
+          hold_action:
+            action: none
+          double_tap_action:
+            action: none
+      - type: custom:mushroom-title-card
+        title: Feeding Times
+        subtitle: ""
+        alignment: center
+      - type: horizontal-stack
+        cards:
+          - type: custom:restriction-card
+            card:
+              type: custom:mushroom-number-card
+              entity: number.single_feeder_hour_time_4
+              name: Dinner
+              primary_info: name
+              fill_container: false
+              display_mode: buttons
+              secondary_info: none
+          - type: custom:restriction-card
+            card:
+              type: custom:mushroom-number-card
+              entity: number.single_feeder_hour_time_3
+              name: Lunch
+              primary_info: name
+              fill_container: false
+              display_mode: buttons
+              secondary_info: none
+      - type: horizontal-stack
+        cards:
+          - type: custom:restriction-card
+            card:
+              type: custom:mushroom-number-card
+              entity: number.single_feeder_hour_time_1
+              name: Breakfast
+              primary_info: name
+              fill_container: false
+              display_mode: buttons
+              secondary_info: none
+          - type: custom:restriction-card
+            card:
+              type: custom:mushroom-number-card
+              entity: number.single_feeder_hour_time_2
+              name: Brunch
+              primary_info: name
+              fill_container: false
+              display_mode: buttons
+              secondary_info: none
+      - type: custom:restriction-card
+        card:
+          type: custom:button-card
+          entity: button.single_feeder_reset
+          name: Restart
+          size: 14%
+          confirmation:
+            text: Do you really restart?
+          styles:
+            icon:
+              - color: red
+          tap_action:
+            action: call-service
+            service: button.press
+            data:
+              entity_id: button.cat_feeder_reset
