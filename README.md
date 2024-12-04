@@ -108,4 +108,53 @@ Further, there are a few sensors that provide you dome informatiob over the feed
 > [!Note]
 > In case something goes wrong the feeder will give everything to feed your cat. In case an error has been detected – e.g. scale not working -  the feeder will go into an emergency mode (no scale, increased current...) and will try to roughly dispense food at feeding times. Depending on the error type, the feeder may also be able to solve the issue on its own (freeing a stuck slider etc.).
 
-I've created myself a dashboard that uses Mushroom cards (https://github.com/piitaya/lovelace-mushroom). You find an example in the Home Assistant folder (LINK).
+I've created myself a dashboard that uses [Mushroom cards](https://github.com/piitaya/lovelace-mushroom). You find an example in the [Home Assistant folder](HomeAssistant).
+
+## Hardware
+### 3D Print
+You will need a case, the food pump, a food silo and a scale. If you want to use my design feel free to 3D print it. If you want, you can change my design – all SolidWorks files are located in the Hardware/CAD (LINK) folder.
+
+In case you use my design, it should be straight forward. In regard to printing, I did not use any significant settings. Most parts do not need much infill, rather do an extra loop on the walls. Tolerances may depend on your printer – tough I designed the gears to be hard to attach to the motors (once they are on, I can’t get them of without breaking. For the bigger (case) parts, I’ve used a 0.6 nozzle, though this was only to speed things up. Further I had issues with warping for the big parts (even with PLA), but it still fits / looks alright.
+
+Materials I’ve used:
+Case:	PLA
+Silo:	PLA
+Rest:	PETG / ABS
+
+### Parts to buy
+**Case:**
+- Filament
+- Threaded inserts (I’ve used a standard set from Ruthex (M2-M5) – the short version is fine, though most holes are designed for the longer/standard ones; the outer case is better of with the short ones (M4)).
+- Screws (just get yourself a set of M-Screw on Amazon etc. – they are cheap.)
+
+**Electronics:**
+*Outside*
+1x 12V Power Supply (in case you want it fail safe you could e.g. use an Eaton 3S Mini UPS)
+
+*In case*
+- 2x TCRT 5000 optical sensor (silo fill sensors)
+- 2x TCST2202 optical sensor (end-stop sensors)
+- 2x NEMA-17 Stepper Motors (e.g.17HS08-1004S)
+- 1x HX711 weighing wensor module
+- 1x 500g Mini Load Cell (e.g. 500g TAL221 / SEN-14728)
+
+*On PCB*
+- 1x Raspberry Pico W
+- 2x TMC2209 Stepper Driver (e.g. S2209 V4.0 form Fysetc)
+-  Resistors:
+ 2x 10 kΩ
+ 1x 1 kΩ
+ 2x 100 Ω
+- 2x 100 uF Capacitor
+- 6x 4-Pin JST / XH Connectors (male + female)
+- Standard Pin Headers (for raspberry, connections… get a few, they are always good to have)
+- 1x Screw Terminal (e.g. DORABO DB128V-5.0-2P-OG-S)
+*Optional:*
+- 5x 4-Pin JST / XH Connectors (male + female) – extra GPIO (e.g. for a display)
+- 9x 100 nF Capacitor  - no really needed but could be beneficial
+- 6x Standard Jumpers - to easily apply board settings
+- 1x Screw Terminal (e.g. DB128V-5.0-2P-GY-S) – in case you want to provide external 3.3V or source it from the board.
+- 1x 3.3V Power Supply (from 12V input) – I use a separate 3.3V power supply from the one that it is on the pico, just to be on the safe side (pico: 300mA max) and to be able to add further things like a display etc. You can use e.g. a LMxx / TSR 1-2433 / D36V28F3 on board or supply the board from an external 3.3V supply. >> Don’t forget to short JEN1 if you don’t use the internal 3.3V Pico power supply. <<
+
+Generally all CAD files and schematics should be self explaining (further info on climbing-engineer). You do not need to use my PCB design / buy a PCB, but I suggest to orientate on my schematics. Further my schematics already include some future improvements possibilities (access to GPIOs) and provide some flexibility in regard to the power supply. 
+	
