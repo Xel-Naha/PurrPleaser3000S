@@ -72,3 +72,40 @@ In case you need more details or want to change things, you should have a look a
 
 ### Internal Dependencies
 The code has some generic (working with more than one cat) helper functionalities in FoodSchedule.h/.cpp and SupprtFunctions.h. These mostly extent the main .ino file and help to de-clutter the code. Then there are FP3000.h/.cpp and SpeedyStepper4Purr.h/.cpp, both belong to the heart piece of the cat feeder, the [FoodPump3000](https://github.com/Poing3000/FoodPump3000).  The food pump considers the actual working hardware of the cat feeder and can also be used on it’s own / implemented in another project. All necessary info can be found at the FoodPump3000 repository and at climbing-engineer.
+
+## Home Assistant / Interface
+Currently the feeder is designed to be used along with Home Assistant ([ArduinoHA](https://github.com/dawidchyrzynski/arduino-home-assistant)). Though, if you need another interface it should be easy to extent the code, e.g. to use an external display or to provide a webserver.
+
+When your MQTT settings are correct in Credentials.h, the cat feeder should automatically appear in your device list without any notification (Settings > Devices & Services > MQTT > Devices > "Your Feeder Name"). This provides you the basic controls over the feeder:
+
+1. Set individual feeding amounts (max. 4x feedings /day).
+2. Autotune – This autotunes the stall detection with the TMC2209 driver for error detection (I found it not to be too important, though I've spend a lot of time on it). If you've got food in the feeder, prepare to collect a lot of dispensed food!
+
+> [!Important]
+> In any case, do autotuning once – it helps with error detection and handling!
+
+4. Calibrate – This calibrates the scale and needs to be done the first time the scale is beeing used.
+> [!Tip]
+> When you press "Calibrate", you'll receive messeages, telling you what you need to do: "You've got **20 seconds to empty the scale bucket** > then the scale tares > then you've go **20 seconds to put 20g into the bucket** > the scale is calibrated.
+
+6. Set a daily feeding amount. This overrides / sets the individual amounts and spreads the daily amount over four feedings.
+7. Feeding Times (Hour + Minute). This allows to set the (max.) four feedings times at which the set amount of food will be dispensed.
+8. Reset. Restarts the feeder (calibrations are saved permenently).
+9. Save Schedule. Feeding amounts and time are only permenently saved if you press this button.
+10. Stall Warnings – I don't really use it. It gives you a warning whenever a stall has been detected from the stepper drivers (may be sensitive).
+11. Treat. Treat your cat!
+12. Amount to be dispensed for a treat. Could also be used for extra manual feeding (e.g. by a Home Assistant routine).
+
+Further, there are a few sensors that provide you dome informatiob over the feeder.
+1. Days until empty. This is a rough estimate of how many days of food are left in the feeder.
+> [!Tip]
+> Days until empty only works if you've got the top and bottom fill sensor installed. Further you need to set the capacity yourself in PP3000S_CONFIG.h. Measure the amount: 1. when the bottom sensor is just covered (LOW_CAP) and from there 2. when the top sensor is just covered (LOW_CAP).
+
+3. Debug tells you if there is something wrong (sensor failure, scale failure etc.).
+4. Last amount that has been fed.
+5. Status tells you what the feeder is currently doing (Standby, Feeding..).
+
+> [!Note]
+> In case something goes wrong the feeder will give everything to feed your cat. In case an error has been detected – e.g. scale not working -  the feeder will go into an emergency mode (no scale, increased current...) and will try to roughly dispense food at feeding times. Depending on the error type, the feeder may also be able to solve the issue on its own (freeing a stuck slider etc.).
+
+I've created myself a dashboard that uses Mushroom cards (https://github.com/piitaya/lovelace-mushroom). You find an example in the Home Assistant folder (LINK).
