@@ -1,5 +1,5 @@
-<p align="center">
-<img src="Logo/Logo_PurrPleaserS.png" width=60% height=60%>
+<p align="right">
+<img src="Logo/Logo_PurrPleaserS.png" width=40% height=40%>
 </p>
 
 # PurrPleaser3000 Single
