@@ -120,6 +120,8 @@ Materials I’ve used:
 Case:	PLA
 Silo:	PLA
 Rest:	PETG / ABS
+Optional
+Seals:	TPU
 
 ### Parts to buy
 **Case:**
