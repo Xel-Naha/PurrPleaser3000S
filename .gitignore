@@ -6,3 +6,4 @@ PurrPleaser3000S.sln
 *.vcxproj.filters
 *.vcxproj.user
 *\_vm
+PP3000S_PicoW/Credentials.h
