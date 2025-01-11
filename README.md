@@ -14,15 +14,15 @@ This project has originally started as a dual feeder for two cat; unfortunately 
 
 ## Usage
 
-  1. Build your cat feeder. You can use the 3D Files here (also on: LINK) and the schematics to build your driver board our use the provided design to let it manufacture. Further info at: climbing-engineer
+  1. Build your cat feeder. You can use the 3D Files here (also on: [Printables](https://www.printables.com/model/1144196-purrpleaser3000s-an-automatic-single-cat-feeder)) and the schematics to build your driver board our use the provided design to let it manufacture. Further info at: climbing-engineer
   2. Download all external dependencies via the Arduino library manager.
-  3. Download this repository  / folder FP3000_PicoW (LINK!).
+  3. Download this repository  / folder [FP3000_PicoW](https://github.com/Poing3000/PurrPleaser3000S/tree/main/PP3000S_PicoW).
   4. Open FP3000_PicoW.ino  in the FP3000_PicoW folder.
   5. Change the settings in Credentials.h and PP3000S_Config.h according to your needs.
   6. IMPORTANT,  allow Flash to be used for LittleFS (Go to Tools -> Flash Size -> FS: 64kb)!
   7. Flash your Raspberry Pico W.
   8. Run it / let it be detected buy your home assistant (will be integrated automatically).
-  9. Configure your home assistant, e.g. build a Dashboard like this: LINK!
+  9. Configure your home assistant, e.g. build a Dashboard like in the examples: [HomeAssistant](https://github.com/Poing3000/PurrPleaser3000S/tree/main/HomeAssistant).
   10. Configure your Feeder via Home Assistant (Calibrate the scale, set your schedule..).
   11. Enjoy – See Home Assistant / Interface below.
 
@@ -112,7 +112,7 @@ I've created myself a dashboard that uses [Mushroom cards](https://github.com/pi
 
 ## Hardware
 ### 3D Print
-You will need a case, the food pump, a food silo and a scale. If you want to use my design feel free to 3D print it. If you want, you can change my design – all SolidWorks files are located in the Hardware/CAD (LINK) folder.
+You will need a case, the food pump, a food silo and a scale. If you want to use my design feel free to 3D print it. If you want, you can change my design – all SolidWorks files are located in the ([Hardware/CAD](https://github.com/Poing3000/PurrPleaser3000S/tree/main/CAD)) folder.
 
 In case you use my design, it should be straight forward. In regard to printing, I did not use any significant settings. Most parts do not need much infill, rather do an extra loop on the walls. Tolerances may depend on your printer – tough I designed the gears to be hard to attach to the motors (once they are on, I can’t get them of without breaking. For the bigger (case) parts, I’ve used a 0.6 nozzle, though this was only to speed things up. Further I had issues with warping for the big parts (even with PLA), but it still fits / looks alright.
 
