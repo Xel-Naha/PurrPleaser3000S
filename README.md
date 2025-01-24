@@ -160,3 +160,8 @@ Seals:	TPU
 
 Generally all CAD files and schematics should be self explaining (further info on climbing-engineer). You do not need to use my PCB design / buy a PCB, but I suggest to orientate on my schematics. Further my schematics already include some future improvements possibilities (access to GPIOs) and provide some flexibility in regard to the power supply. 
 	
+## Possible Future Improvements
+- [ ] Calibrate Scale With Food - Calibrate the scale by dispensing food, manually measuring the dispensed amount, and providing feedback of the measured amount back to the feeder for calibration.
+- [ ] Over the Air Updates (OTA)
+- [ ] Support Display
+- [ ] Web Interface
