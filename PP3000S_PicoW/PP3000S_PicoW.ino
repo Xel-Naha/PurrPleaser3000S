@@ -278,6 +278,11 @@ void loop1() {
 	// Feeding Cycles (checks for empty scale)
 	static byte feedCycles = 0;
 
+	// Time keeping for intervals
+	static unsigned long lastTime = 0;
+	const unsigned long checkInterval = 10000; // 10 seconds
+	unsigned long currentTime = millis();
+
 	// -------------------------------------------------------------------------------------------------------*
 
 	// Operation Mode Settings
@@ -312,10 +317,17 @@ void loop1() {
 		// ===============================================================
 
 		// Power Off unused devices
-		Power_c1(false);							// Toggle e.g. for setting IR Sensors (Support Function)
+		Power_c1(false);							// Toggle e.g. Driver On/Off (Support Function)
 
 		// Reset Feed Mode
 		feedMode = PRIME;							// Reset feeding mode
+
+		// Check every 10 seconds fill level
+		if (currentTime - lastTime >= checkInterval) {
+            lastTime = currentTime;
+			checkFillLevel_c1(0);					// '0' because no feeding is done (Support Function)
+        }
+
 
 		break;
 		// ----------------------------------------------------------------------------------------------------

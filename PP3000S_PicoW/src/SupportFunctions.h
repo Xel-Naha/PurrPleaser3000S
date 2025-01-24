@@ -747,10 +747,10 @@ void checkFillLevel_c1(uint16_t lastAmount1, uint16_t lastAmount2) {
 #else
 // ELSE 1x CAT ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void checkFillLevel_c1(uint16_t lastAmount1) {
-
-	static bool lowLevel = false;					// Low level warning
-	static bool lastState = false;					// Last state of the top sensor
-	static uint16_t feedingSinceTop = HIGH_CAP;		// Feeding since full (assume ~empty at start)
+	static bool lowLevel = false;                    // Low level warning
+	static bool lastState = false;                   // Last state of the top sensor
+	static uint16_t feedingSinceTop = HIGH_CAP;      // Feeding since full (assume ~empty at start)
+	static bool wasLowLevel = false;                 // Track if it was low level before
 
 	// Side Fill Sensor
 	// ========================================================================================
@@ -766,8 +766,8 @@ void checkFillLevel_c1(uint16_t lastAmount1) {
 			lowLevel = false;
 		}
 	}
-	// ========================================================================================
 
+	// ========================================================================================
 	// Top Sensor
 	// ========================================================================================
 	// This function approximates the fill level based on the top and side sensor readings
@@ -778,35 +778,50 @@ void checkFillLevel_c1(uint16_t lastAmount1) {
 	// if this substraction shows 0, the the remaining feedings will show the min. value,
 	// calculated with the LOW_CAP figure (e.g. "<1 day" left). This is a very rough estimation
 	// and should be used with caution. Note, sensor signals are inverted.
-
 	if (SIDE_FILL && TOP_FILL) {
 		uint16_t remainingDays = 0;
 		uint16_t amountCat1 = 0;
+
+		// Calculate total daily feeding amount
 		for (int i = 0; i < 4; i++) {
 			amountCat1 += PicoRTC.schedule.feedingAmounts[i][0];
 		}
 
+		// Read top sensor (inverted signal)
 		bool readHighLevel = EXPANDER ? mcp.getPin(TOP_IR_1, A) : digitalRead(TOP_IR_1);
-		if (lowLevel) {
+
+		// Check fill level
+		if (lowLevel) {                                // Food is below low level sensor
 			remainingDays = LOW_CAP / amountCat1;
-			PackPushData('2', 0, remainingDays);	// '2' = Message type: "Warning! < "
+			PackPushData('2', 0, remainingDays);    // '2' = Message type: "Warning! < "
+			wasLowLevel = true;                     // Set wasLowLevel to true
 		}
-		else if (readHighLevel) {
-			if (lastState) {
+		else if (readHighLevel) {                    // Food is below top sensor
+			if (lastState) {                        // Food was full (now not full); first time calculation from full
 				lastState = false;
 				feedingSinceTop = 0;
 				remainingDays = HIGH_CAP / amountCat1;
 			}
-			else {
+			else {                                // Food was not full; calculate remaining days based on feeding since full
 				feedingSinceTop += lastAmount1;
 				remainingDays = (feedingSinceTop >= HIGH_CAP) ? LOW_CAP / amountCat1 : (HIGH_CAP - feedingSinceTop) / amountCat1;
 			}
-			PackPushData('1', 0, remainingDays);	// '1' = Message type: "~ "
+			PackPushData('1', 0, remainingDays);    // '1' = Message type: "~ "
+			wasLowLevel = false;                    // Reset wasLowLevel to false
 		}
-		else {
+		else {                                    // Food is above top sensor (full)
 			lastState = true;
+			feedingSinceTop = 0;                    // Reset feedingSinceTop when full
 			remainingDays = HIGH_CAP / amountCat1;
-			PackPushData('0', 0, remainingDays);	// '0' = Message type: "> "
+			PackPushData('0', 0, remainingDays);    // '0' = Message type: "> "
+			wasLowLevel = false;                    // Reset wasLowLevel to false
+		}
+
+		// Check if food is above side sensor but below top sensor
+		if (!lowLevel && !readHighLevel && wasLowLevel) {
+			remainingDays = LOW_CAP / amountCat1;   // Assume minimum capacity since exact amount is unknown
+			PackPushData('0', 0, remainingDays);    // '0' = Message type: "> "
+			wasLowLevel = false;                    // Reset wasLowLevel to false
 		}
 	}
 	// ========================================================================================
