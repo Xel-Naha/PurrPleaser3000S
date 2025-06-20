@@ -20,7 +20,7 @@ This project has originally started as a dual feeder for two cat; unfortunately 
   4. Open FP3000_PicoW.ino  in the FP3000_PicoW folder.
   5. Change the settings in Credentials.h and PP3000S_Config.h according to your needs.
   6. IMPORTANT,  allow Flash to be used for LittleFS (Go to Tools -> Flash Size -> FS: 64kb)!
-  7. Flash your Raspberry Pico W.
+  7. Flash your Raspberry Pi Pico W (or Pico 2 W).
   8. Run it / let it be detected buy your home assistant (will be integrated automatically).
   9. Configure your home assistant, e.g. build a Dashboard like in the examples: [HomeAssistant](https://github.com/Poing3000/PurrPleaser3000S/tree/main/HomeAssistant).
   10. Configure your Feeder via Home Assistant (Calibrate the scale, set your schedule..).
@@ -29,7 +29,7 @@ This project has originally started as a dual feeder for two cat; unfortunately 
 ## Software
 
 > [!NOTE]
-> This code (C++) is written to run on a Raspberry Pico W.
+> This code (C++) is written to run on a Raspberry Pi Pico W and is compatible with the Pico 2 W.
 
 > [!NOTE]
 > At the moment the feeder uses Home Assistant as an interface. It is easily possible to extent the code to implement a website or so; however, I don’t need it at the moment – feel free to implement changes that suit your needs.
@@ -51,7 +51,7 @@ You will need to download and install the following external Arduino libraries:
 First of all, I am not a professional, nor am I really good at coding; however, it works and I tried my best in my free time. In case you’ve got improvements / suggestions, please feel free to implement them.
 
 > [!NOTE]
-> At first you should note that this code has been specifically written for the Raspberry Pico W. It further uses both cores of the RP2040, whereat at communication, WiFi, scheduling etc. runs on Core 0 and all hardware (sensors, drivers, motors) linked functionalities run on Core 1.
+> At first you should note that this code has been specifically written for the Raspberry Pi Pico W. It further uses both cores of the RP2040, whereat at communication, WiFi, scheduling etc. runs on Core 0 and all hardware (sensors, drivers, motors) linked functionalities run on Core 1. The same code also works on the Pico 2 W.
 
 The main parts you should be interested in when reading this are:
 
@@ -141,7 +141,7 @@ Seals:	TPU
 - 1x 500g Mini Load Cell (e.g. 500g TAL221 / SEN-14728)
 
 *On PCB*
-- 1x Raspberry Pico W
+- 1x Raspberry Pi Pico W or Pico 2 W
 - 2x TMC2209 Stepper Driver (e.g. S2209 V4.0 form Fysetc)
 -  Resistors:
  2x 10 kΩ
