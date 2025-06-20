@@ -5,7 +5,7 @@
  *
  * Description:
  * This code is for the PurrPleaser3000S.
- * It is built for a Raspberry Pico W and a TMC2209 stepper driver.
+ * It is built for a Raspberry Pi Pico W and a TMC2209 stepper driver.
  * Further info at: https://github.com/Poing3000/PurrPleaser3000S
  *
  * NOTE: Allow Flash to be used for LittleFS in the Arduino IDE settings (Tools -> Flash Size -> FS: 64kb)!
@@ -33,12 +33,19 @@
 
  // LIBRARIES:
  // ----------------------------------------------------------
- // External
+// External
 #include <Wire.h>
 #include <WiFi.h>
 #include <Timezone.h>
 #include <ArduinoHA.h>
 #include <Arduino_DebugUtils.h>
+
+// Check board compatibility (Pico W or Pico 2 W)
+#if defined(ARDUINO_RASPBERRY_PI_PICO_W) || defined(ARDUINO_RASPBERRY_PI_PICO2W)
+  // Supported boards
+#else
+#error "This sketch requires a Raspberry Pi Pico W or Pico 2 W board"
+#endif
 
 // Pico SDK (RP2040) specific
 #include "hardware/rtc.h"
