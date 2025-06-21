@@ -24,3 +24,6 @@ FEED_TIMES = [
     (8, 0),
     (18, 0)
 ]
+
+# Default amounts for each feeding time in grams
+FEED_AMOUNTS = [5.0, 5.0]

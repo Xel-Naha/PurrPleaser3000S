@@ -32,9 +32,9 @@ This project has originally started as a dual feeder for two cat; unfortunately 
 > This code (C++) is written to run on a Raspberry Pico W.
 
 > [!NOTE]
-> A minimal MicroPython port is available in the `PP3000S_MicroPython`
-> directory. It provides a basic skeleton for running the feeder on
-> MicroPython but is not feature complete.
+> A MicroPython port is available in the `PP3000S_MicroPython`
+> directory. It now implements most of the features of the original
+> C++ firmware and can run directly on a Pico W.
 
 > [!NOTE]
 > At the moment the feeder uses Home Assistant as an interface. It is easily possible to extent the code to implement a website or so; however, I don’t need it at the moment – feel free to implement changes that suit your needs.

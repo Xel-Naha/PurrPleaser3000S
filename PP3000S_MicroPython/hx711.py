@@ -14,6 +14,9 @@ class HX711:
         self.clock.low()
         time.sleep_ms(100)
 
+    def power_off(self):
+        self.clock.high()
+
     def is_ready(self):
         return self.data.value() == 0
 
