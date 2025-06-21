@@ -1,0 +1,29 @@
+# Configuration for PurrPleaser3000S MicroPython version
+
+PP_NAME = "Single Feeder"
+VERSION = "0.1.0"
+
+MOTOR_STEP_PIN_0 = 4
+MOTOR_DIR_PIN_0 = 5
+LIMIT_SWITCH_0 = 18
+
+MOTOR_STEP_PIN_1 = 7
+MOTOR_DIR_PIN_1 = 8
+LIMIT_SWITCH_1 = 19
+
+SCALE_DATA_PIN_1 = 12
+SCALE_CLOCK_PIN_1 = 14
+
+LED_PIN = 25
+
+TREAT_AMOUNT = 1.0
+APPROX_OFFSET = 4.0
+MAX_SINGLE = 20
+
+FEED_TIMES = [
+    (8, 0),
+    (18, 0)
+]
+
+# Default amounts for each feeding time in grams
+FEED_AMOUNTS = [5.0, 5.0]
