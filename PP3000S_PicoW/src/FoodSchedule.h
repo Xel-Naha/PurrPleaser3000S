@@ -1,14 +1,15 @@
 /*
-* This is the header file for the Food Schedule libray (FS3000), providing functions to basically set the Raspberry Pico's RTC
-* in order to release feeding amounts at specific times. Further details can be found in the FoodSchedule.cpp file.
+* This is the header file for the Food Schedule library (FS3000). It configures
+* the hardware timer used for scheduled feedings (either the RP2040 RTC or the
+* POWMAN timer on newer RP2350 boards). Further details can be found in the
+* FoodSchedule.cpp file.
 */
 
 #ifndef _FOODSCHEDULE_h
 #define _FOODSCHEDULE_h
 
 #include <WiFi.h>
-#include "hardware/rtc.h"
-#include "pico/util/datetime.h"
+#include "time_compat.h"
 #include <Timezone.h>
 #include <LittleFS.h>
 
@@ -48,8 +49,8 @@ private:
 
 
 	// Private functions
-	static void alarmISR();												// User callback function for the RP2040 RTC alarm
-	void setRTC(const char* ntpServer);									// Function to set the RTC with time from NTP server
+	static void alarmISR();												// User callback for the hardware timer alarm
+	void setRTC(const char* ntpServer);									// Function to set the timer with time from NTP server
 	void unix_to_datetime(time_t unix_time, datetime_t* dt);			// Function to convert unix time to datetime_t
 	void setFeedingSchedule();											// Function to set the feeding schedule
 	bool loadFeedingSchedule();											// Function to load the feeding schedule from NVM

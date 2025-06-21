@@ -1,7 +1,7 @@
 /*
 * This is the libray Food Schedule (FS3000), which allows to provide set feeding amounts for one or two cats at
-* four different set times. The time is set from NTP and then used by the RP2040 build in RTC. Feeding events are
-* triggerd by the RTC alarm; hence they are self-contained and cannot be missed. As inputs, the library
+* four different set times. The time is set from NTP and then used by the hardware timer. Feeding events are
+* triggerd by the timer alarm; hence they are self-contained and cannot be missed. As inputs, the library
 * requires the NTP server, the daylight saving time rule, and the standard time rule. Further it needs the
 * feeding times and amounts. NOTE: the schedule is global and can directly be accessed and modified
 * (FeedingSchedule schedule). 
@@ -26,40 +26,40 @@ FS3000::FS3000(TimeChangeRule dlt, TimeChangeRule sdt, const char* ntpServer) : 
 
 // Feeding Alarm ISR
 // ---------------------------------------------------------------------------------------------------------------
-// Sets the alarm flag to true when RTC alarm is triggered.
+// Sets the alarm flag to true when timer alarm is triggered.
 void FS3000::alarmISR() {
     alarmFlag = true;
 }
 // --------------------------------------------------------------------------------------------------------------*
 
-// Setup the RTC and the feeding schedule
+// Setup the hardware timer and the feeding schedule
 // ---------------------------------------------------------------------------------------------------------------
-// Sets up the RTC and the feeding schedule. The RTC is set from NTP and the feeding schedule is set from the
+// Sets up the hardware timer and the feeding schedule. The timer is set from NTP and the feeding schedule is set from the
 // stored values or the default values.
 void FS3000::SetupFeedClock() {
 
-    // Start RTC and set the time from NTP.
-    rtc_init();
+    // Start the timer and set the time from NTP.
+    rp_time_init();
     setRTC(ntpServer);
-    delayMicroseconds(100); // The RTC is slower than the system clock (~ 64us at default clock settings).
+    delayMicroseconds(100); // The timer is slower than the system clock (~ 64us at default clock settings).
     setFeedingSchedule();
 }
 // --------------------------------------------------------------------------------------------------------------*
 
-// Function to set the RTC time from NTP
+// Function to set the time from NTP
 // ---------------------------------------------------------------------------------------------------------------
 void FS3000::setRTC(const char* ntpServer) {
 
-    // Set the RTC time from NTP
+    // Set the timer time from NTP
     NTP.begin(ntpServer);
     NTP.waitSet();
 
-    // Set the RTC time
+    // Set the timer time
     time_t utc = time(nullptr);
     time_t local = myTZ.toLocal(utc, &tcr);
     datetime_t t;
     unix_to_datetime(local, &t);
-    rtc_set_datetime(&t);
+    rp_time_set_datetime(&t);
 }
 // --------------------------------------------------------------------------------------------------------------*
 
@@ -177,7 +177,7 @@ void FS3000::setFeedingAmounts(byte amountCat1) {
 void FS3000::setNextFeedingAlarm() {
     // Get current time
     datetime_t current_time;
-    rtc_get_datetime(&current_time);
+    rp_time_get_datetime(&current_time);
 
     // Initialize the alarm time, seconds are not considered
     // (-1 means that the value is not specified, like a wildcard)
@@ -215,7 +215,7 @@ void FS3000::setNextFeedingAlarm() {
     }
 
     // Set the alarm for the next feeding time
-    rtc_set_alarm(&alarm_time, &alarmISR);
+    rp_time_set_alarm(&alarm_time, &alarmISR);
 }
 // --------------------------------------------------------------------------------------------------------------*
 
