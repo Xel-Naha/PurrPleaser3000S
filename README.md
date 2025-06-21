@@ -33,6 +33,9 @@ This project has originally started as a dual feeder for two cat; unfortunately 
 
 > [!NOTE]
 > At the moment the feeder uses Home Assistant as an interface. It is easily possible to extent the code to implement a website or so; however, I don’t need it at the moment – feel free to implement changes that suit your needs.
+### Pico 2 W (RP2350) boards
+Pico 2 W requires the latest Pico SDK with `hardware/powman.h` and the `PICO_RP2350` define so the powman timer works.
+
 
 ### External Dependencies (Libraries)
 You will need to download and install the following external Arduino libraries:
