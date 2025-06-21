@@ -40,9 +40,8 @@
 #include <ArduinoHA.h>
 #include <Arduino_DebugUtils.h>
 
-// Pico SDK (RP2040) specific
-#include "hardware/rtc.h"
-#include "pico/util/datetime.h"
+// Pico SDK specific
+#include "src/time_compat.h"
 
 // Local
 #include "Credentials.h"
