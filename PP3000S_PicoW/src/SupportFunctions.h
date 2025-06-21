@@ -62,7 +62,7 @@ void checkWifi() {
 
 // Function to check if it is time to feed
 // ----------------------------------------------------------------------------------------------------
-// Checks if it is time to feed via PicoRTC. If it is time, the feeding command is sent to Core 1.
+// Checks if it is time to feed via the hardware timer. If it is time, the feeding command is sent to Core 1.
 void CheckTimeAndFeed_c0() {
 
 // +++++++++++++++++++++++++++ DIFFERENTIATE BETWEEN 1x AND 2x CATS +++++++++++++++++++++++++++++++++++

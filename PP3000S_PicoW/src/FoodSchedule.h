@@ -27,7 +27,7 @@ public:
 	}; FeedingSchedule schedule;		// Feeding schedule object
 
 	// Public functions
-	void SetupFeedClock();													// Function to setup the feeding clock, RTC alarm and feeding schedule
+	void SetupFeedClock();													// Function to setup the feeding clock, hardware timer alarm and feeding schedule
 	void setFeedingAmounts(int index, byte amountCat1, byte amountCat2);	// Function to set the feeding amounts
 	void setFeedingAmounts(int index, byte amountCat1);						// Function to set the feeding amounts (overload 1x cat)
 	void setFeedingAmounts(byte amountCat1, byte amountCat2);				// Function to set the feeding amounts for all feeding times (overloaded function)
@@ -44,7 +44,7 @@ private:
 	Timezone myTZ;			// Timezone object (see Timezone.h)
 	TimeChangeRule* tcr;	// TimeChangeRule object (see Timezone.h)
 	const char* ntpServer;	// NTP server address
-	static bool alarmFlag;	// Flag for RTC alarm (set by alarmISR)
+	static bool alarmFlag;	// Flag for hardware timer alarm (set by alarmISR)
 	byte nextSchedule;		// Index of the next feeding schedule
 
 
